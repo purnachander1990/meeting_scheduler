@@ -65,22 +65,8 @@ class MeetingData extends ChangeNotifier {
     TimeSlot(time: '10:45 PM'),
     TimeSlot(time: '11:00 PM'),
     TimeSlot(time: '11:45 PM'),
-    TimeSlot(time: '9:30 PM'),
-    TimeSlot(time: '9:45 PM'),
-    TimeSlot(time: '10:00 PM'),
-    TimeSlot(time: '10:15 PM'),
-    TimeSlot(time: '10:30 PM'),
-    TimeSlot(time: '10:45 PM'),
-    TimeSlot(time: '11:00 PM'),
-    TimeSlot(time: '11:45 PM'),
-    TimeSlot(time: '9:30 PM'),
-    TimeSlot(time: '9:45 PM'),
-    TimeSlot(time: '10:00 PM'),
-    TimeSlot(time: '10:15 PM'),
-    TimeSlot(time: '10:30 PM'),
-    TimeSlot(time: '10:45 PM'),
-    TimeSlot(time: '11:00 PM'),
-    TimeSlot(time: '11:45 PM'),
+
+
   ];
 
   // Selected states
@@ -88,18 +74,15 @@ class MeetingData extends ChangeNotifier {
   TimeSlot? selectedTimeSlot;
   String currentTimezone = '(-05:00) EST - NEW YORK TIME';
 
-  // Get calendar days for current month view
+  /// Returns a list of 35–42 days to populate the calendar grid for the current month.
   List<DateTime> getCalendarDays() {
     List<DateTime> days = [];
 
-    // Get first and last day of the current month
     final firstDayOfMonth = DateTime(currentMonth.year, currentMonth.month, 1);
     final lastDayOfMonth = DateTime(currentMonth.year, currentMonth.month + 1, 0);
 
-    // Weekday adjustment (0 = Sunday, 6 = Saturday)
     int startWeekday = firstDayOfMonth.weekday % 7;
 
-    // Fill leading days from previous month
     DateTime prevMonth = DateTime(currentMonth.year, currentMonth.month - 1, 1);
     int daysInPrevMonth = DateTime(prevMonth.year, prevMonth.month + 1, 0).day;
 
@@ -107,12 +90,10 @@ class MeetingData extends ChangeNotifier {
       days.add(DateTime(prevMonth.year, prevMonth.month, daysInPrevMonth - startWeekday + i + 1));
     }
 
-    // Fill current month days
     for (int i = 1; i <= lastDayOfMonth.day; i++) {
       days.add(DateTime(currentMonth.year, currentMonth.month, i));
     }
 
-    // Fill trailing days from next month to complete 42-day grid
     int remainingSlots = 35 - days.length;
     DateTime nextMonth = DateTime(currentMonth.year, currentMonth.month + 1, 1);
 
@@ -123,29 +104,21 @@ class MeetingData extends ChangeNotifier {
     return days;
   }
 
-
+  /// Returns the number of days in the given month and year.
   int _daysInMonth(int year, int month) {
     return DateTime(year, month + 1, 0).day;
   }
 
+  /// Returns the current month name in uppercase format.
   String getCurrentMonthName() {
     return DateFormat('MMMM').format(currentMonth).toUpperCase();
   }
 
-  /*void nextMonth() {
-    if (currentMonth.month + 3 > DateTime.now().month + 3 && 
-        currentMonth.year >= DateTime.now().year) {
-      return; // Don't allow more than 3 months in the future
-    }
-    
-    currentMonth = DateTime(currentMonth.year, currentMonth.month + 1, 1);
-    notifyListeners();
-  }*/
+  /// Moves the calendar to the next month (max 3 months ahead of current date).
   void nextMonth() {
     final now = DateTime.now();
     final maxDate = DateTime(now.year, now.month + 3, 1);
 
-    // If the next month would exceed the max allowed date, block it
     final next = DateTime(currentMonth.year, currentMonth.month + 1, 1);
     if (next.isAfter(maxDate)) {
       return;
@@ -155,54 +128,62 @@ class MeetingData extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Moves the calendar to the previous month (not before current date).
   void previousMonth() {
     final now = DateTime.now();
     final previousMonth = DateTime(currentMonth.year, currentMonth.month - 1, 1);
-    
-    if (previousMonth.year < now.year || 
+
+    if (previousMonth.year < now.year ||
         (previousMonth.year == now.year && previousMonth.month < now.month)) {
-      return; // Don't allow going before the current month
+      return;
     }
-    
+
     currentMonth = previousMonth;
     notifyListeners();
   }
 
+  /// Selects a specific date from the calendar.
   void selectDate(DateTime date) {
     selectedDate = date;
     notifyListeners();
   }
 
+  /// Selects a duration option for the meeting.
   void selectDuration(int index) {
     selectedDurationIndex = index;
     notifyListeners();
   }
 
+  /// Selects a time slot for the meeting.
   void selectTimeSlot(TimeSlot timeSlot) {
     selectedTimeSlot = timeSlot;
     notifyListeners();
   }
 
+  /// Clears the selected time slot (e.g., when canceled).
   void clearSelection() {
     selectedTimeSlot = null;
     notifyListeners();
   }
 
+  /// Confirms the booking and prints it to console.
   void confirmBooking() {
-    // In a real app, this would send data to a backend
     print('Booking confirmed for ${durationOptions[selectedDurationIndex].minutes} minutes on ${DateFormat('MMMM d').format(selectedDate)} at ${selectedTimeSlot?.time}');
     clearSelection();
   }
 
+  /// Updates the currently selected timezone.
   void setTimezone(String timezone) {
     currentTimezone = timezone;
     notifyListeners();
   }
 
+  /// Returns whether a time slot is selected and ready for confirmation.
   bool isConfirmationVisible() {
     return selectedTimeSlot != null;
   }
 
+  /// Returns the selected date in a formatted string (e.g., "MONDAY, APRIL 21").
   String getFormattedDate() {
     return DateFormat('EEEE, MMMM d').format(selectedDate).toUpperCase();
   }
