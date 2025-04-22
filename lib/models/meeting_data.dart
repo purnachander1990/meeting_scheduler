@@ -109,45 +109,6 @@ class MeetingData extends ChangeNotifier {
     TimeSlot(time: '11:45 PM'),
   ];
 
-  void getTimeSlot(){
-    if(selectedDurationIndex==0){
-      timeSlots = [
-        TimeSlot(time: '8:30 PM'),
-        TimeSlot(time: '8:45 PM'),
-        TimeSlot(time: '9:00 PM'),
-        TimeSlot(time: '9:15 PM'),
-        TimeSlot(time: '9:30 PM'),
-        TimeSlot(time: '9:45 PM'),
-        TimeSlot(time: '10:00 PM'),
-        TimeSlot(time: '10:15 PM'),
-        TimeSlot(time: '10:30 PM'),
-        TimeSlot(time: '10:45 PM'),
-        TimeSlot(time: '11:00 PM'),
-        TimeSlot(time: '11:15 PM'),
-        TimeSlot(time: '11:30 PM'),
-        TimeSlot(time: '11:45 PM'),
-      ];
-    }else if(selectedDurationIndex==1){
-      timeSlots = [
-        TimeSlot(time: '8:30 PM'),
-        TimeSlot(time: '9:00 PM'),
-        TimeSlot(time: '9:30 PM'),
-        TimeSlot(time: '10:00 PM'),
-        TimeSlot(time: '10:30 PM'),
-        TimeSlot(time: '11:00 PM'),
-        TimeSlot(time: '11:30 PM'),
-      ];
-    }else if(selectedDurationIndex==2){
-      timeSlots = [
-        TimeSlot(time: '8:00 PM'),
-        TimeSlot(time: '9:00 PM'),
-        TimeSlot(time: '10:00 PM'),
-        TimeSlot(time: '11:00 PM'),
-      ];
-    }
-    notifyListeners();
-  }
-
   // Selected states
   int selectedDurationIndex = 0;
   TimeSlot? selectedTimeSlot;
