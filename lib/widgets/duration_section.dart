@@ -12,7 +12,7 @@ class DurationSection extends StatelessWidget {
     final meetingData = Provider.of<MeetingData>(context);
 
     return Padding(
-      padding: const EdgeInsets.all(24.0),
+      padding: const EdgeInsets.all(36.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -83,7 +83,7 @@ class DurationOption extends StatelessWidget {
       onTap: onTap,
       child: Container(
         padding: isSelected
-            ? const EdgeInsets.all(16)
+            ? const EdgeInsets.only(top: 12,bottom: 16, right: 16, left: 16)
             : const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         decoration: BoxDecoration(
           color: isSelected ? Colors.black : Colors.white,
@@ -104,7 +104,7 @@ class DurationOption extends StatelessWidget {
                 Text(
                   durationText,
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 13,
                     fontWeight: FontWeight.w100,
                     color: isSelected ? Colors.grey.shade300 : Colors.black,
                   ),
@@ -121,13 +121,12 @@ class DurationOption extends StatelessWidget {
 
             /// Description (only visible if selected)
             if (isSelected) ...[
-              const SizedBox(height: 8),
+              const SizedBox(height: 10),
               Text(
                 descriptionText,
                 style: TextStyle(
-                  fontSize: 14,
+                  fontSize: 13,
                   color: Colors.grey.shade300,
-                  height: 1.5,
                 ),
               ),
             ],

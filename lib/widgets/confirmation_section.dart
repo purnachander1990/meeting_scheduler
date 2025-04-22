@@ -13,12 +13,11 @@ class ConfirmationSection extends StatelessWidget {
     final selectedDuration = meetingData.durationOptions[meetingData.selectedDurationIndex];
 
     return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(16),
-      margin: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(12),
+      margin: const EdgeInsets.all(5),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
             color: Colors.grey.shade200,
@@ -34,42 +33,48 @@ class ConfirmationSection extends StatelessWidget {
           const Text(
             '4. CONFIRM BOOKING',
             style: TextStyle(
-              fontSize: 16,
+              fontSize: 15,
               fontStyle: FontStyle.italic,
-              fontWeight: FontWeight.w600,
-              color: Color(0xFF333333),
+              fontWeight: FontWeight.w500,
+              color: Colors.black,
             ),
           ),
           const SizedBox(height: 16),
 
           /// Meeting details (duration and participant)
-          Wrap(
-            children: [
-              Text(
-                '${selectedDuration.minutes} MINUTE MEETING',
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
+          Container(
+            padding: EdgeInsets.only(right: 50),
+            child: Wrap(
+              children: [
+                Text(
+                  '${selectedDuration.minutes} MINUTE MEETING',
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
-              ),
-              const SizedBox(width: 6),
-              const Text(
-                'WITH',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.grey,
+                const SizedBox(width: 6),
+                const Text(
+                  'WITH',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontStyle: FontStyle.italic,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.grey,
+                  ),
                 ),
-              ),
-              const SizedBox(width: 6),
-              const Text(
-                'ANGELO BEGETTI',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
+                const SizedBox(width: 6),
+                const Text(
+                  'ANGELO BEGETTI',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           const SizedBox(height: 8),
 
@@ -77,8 +82,9 @@ class ConfirmationSection extends StatelessWidget {
           Text(
             '${meetingData.getFormattedDate()}, AT ${meetingData.selectedTimeSlot?.time}',
             style: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
+              fontSize: 12,
+              color: Colors.black,
+              fontWeight: FontWeight.w600,
             ),
             overflow: TextOverflow.ellipsis,
           ),
@@ -89,12 +95,12 @@ class ConfirmationSection extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               /// Confirm button
-              ElevatedButton(
+              TextButton(
                 onPressed: meetingData.confirmBooking,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF4CD964),
+                  backgroundColor: const Color(0xFF33CD7B),
                   foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(24),
                   ),
@@ -102,19 +108,20 @@ class ConfirmationSection extends StatelessWidget {
                 child: const Text(
                   'CONFIRM',
                   style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
+                    fontSize: 13,
+                    fontWeight: FontWeight.normal
                   ),
                 ),
               ),
+
               const SizedBox(width: 12),
 
               /// Cancel button
               TextButton(
                 onPressed: meetingData.clearSelection,
                 style: TextButton.styleFrom(
-                  foregroundColor: Colors.grey,
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  backgroundColor: const Color(0xFFF3F8FB),
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(24),
                   ),
@@ -122,8 +129,7 @@ class ConfirmationSection extends StatelessWidget {
                 child: const Text(
                   'CANCEL',
                   style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
+                    fontSize: 13,
                   ),
                 ),
               ),

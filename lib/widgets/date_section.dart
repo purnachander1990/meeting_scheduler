@@ -36,7 +36,6 @@ class DateSection extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(50),
-                border: Border.all(color: Colors.grey.shade300),
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
@@ -139,28 +138,37 @@ class DateSection extends StatelessWidget {
               return GestureDetector(
                 onTap: isDisabled ? null : () => meetingData.selectDate(day),
                 child: Container(
-                  margin: const EdgeInsets.all(4),
-                  decoration: BoxDecoration(
-                    color: isSelected ? Colors.black : Colors.transparent,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Center(
-                    child: Text(
-                      day.day.toString(),
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: isToday ? FontWeight.w600 : FontWeight.w500,
-                        color: isDisabled
-                            ? Colors.grey.shade400
-                            : (isSelected
-                            ? Colors.white
-                            : (isInCurrentMonth
-                            ? Colors.black
-                            : Colors.grey.shade400)),
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: SizedBox(
+                      width: 45, // actual circle size
+                      height: 45,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: isSelected ? Colors.black : Colors.transparent,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Center(
+                          child: Text(
+                            day.day.toString(),
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: isToday ? FontWeight.w600 : FontWeight.w500,
+                              color: isDisabled
+                                  ? Colors.grey.shade400
+                                  : (isSelected
+                                  ? Colors.white
+                                  : (isInCurrentMonth
+                                  ? Colors.black
+                                  : Colors.grey.shade400)),
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                   ),
                 ),
+
               );
             },
           ),
@@ -179,14 +187,14 @@ class WeekdayHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 30,
+      width: 35,
       child: Text(
         day,
         style: TextStyle(
-          fontSize: 12,
+          fontSize: 13,
           fontWeight: FontWeight.w500,
           fontStyle: FontStyle.italic,
-          color: Colors.grey.shade600,
+          color: Colors.grey,
         ),
         textAlign: TextAlign.center,
       ),

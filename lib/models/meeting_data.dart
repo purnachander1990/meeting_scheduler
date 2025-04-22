@@ -57,6 +57,10 @@ class MeetingData extends ChangeNotifier {
 
   // Time slots
   List<TimeSlot> timeSlots = [
+    TimeSlot(time: '8:30 PM'),
+    TimeSlot(time: '8:45 PM'),
+    TimeSlot(time: '9:00 PM'),
+    TimeSlot(time: '9:15 PM'),
     TimeSlot(time: '9:30 PM'),
     TimeSlot(time: '9:45 PM'),
     TimeSlot(time: '10:00 PM'),
@@ -64,6 +68,8 @@ class MeetingData extends ChangeNotifier {
     TimeSlot(time: '10:30 PM'),
     TimeSlot(time: '10:45 PM'),
     TimeSlot(time: '11:00 PM'),
+    TimeSlot(time: '11:15 PM'),
+    TimeSlot(time: '11:30 PM'),
     TimeSlot(time: '11:45 PM'),
 
 

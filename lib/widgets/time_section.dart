@@ -35,13 +35,15 @@ class TimeSection extends StatelessWidget {
           const SizedBox(height: 16),
 
           /// Time slot grid
-          SizedBox(
+          Container(
+            margin: EdgeInsets.only(left: 15, right: 15),
+            color: Colors.transparent,
             height: 500,
             child: GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: columnCount,
-                mainAxisSpacing: 10,
-                crossAxisSpacing: 10,
+                mainAxisSpacing: 15,
+                crossAxisSpacing: 15,
                 childAspectRatio: childAspectRatio,
               ),
               itemCount: meetingData.timeSlots.length,
@@ -86,11 +88,10 @@ class TimeSlotItem extends StatelessWidget {
       onTap: isAvailable ? onTap : null,
       child: Container(
         height: 100,
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 12),
         decoration: BoxDecoration(
           color: isSelected ? Colors.black : Colors.white,
           borderRadius: BorderRadius.circular(50),
-          border: isSelected ? null : Border.all(color: Colors.grey.shade300),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -100,7 +101,7 @@ class TimeSlotItem extends StatelessWidget {
                 time,
                 style: TextStyle(
                   fontSize: 14,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w500,
                   color: isSelected ? Colors.white : Colors.black,
                 ),
               ),

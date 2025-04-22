@@ -18,7 +18,7 @@ class TimezoneSection extends StatelessWidget {
         borderRadius: BorderRadius.circular(50),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(14.0),
+        padding: const EdgeInsets.only(left: 30, right: 30, top: 10, bottom: 10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
@@ -33,8 +33,8 @@ class TimezoneSection extends StatelessWidget {
                     meetingData.currentTimezone,
                     style: const TextStyle(
                       fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                      color: Color(0xFF666666),
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black,
                     ),
                   ),
                   const Icon(Icons.keyboard_arrow_down, size: 16),
