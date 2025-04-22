@@ -21,17 +21,53 @@ class TimeSlot {
 
   TimeSlot({required this.time, this.isAvailable = true});
 }
+String getDefaultTimezone() {
+  final now = DateTime.now();
+  final offset = now.timeZoneOffset;
 
+  final hours = offset.inHours.abs().toString().padLeft(2, '0');
+  final minutes = (offset.inMinutes.abs() % 60).toString().padLeft(2, '0');
+  final sign = offset.isNegative ? '-' : '+';
+  final offsetKey = '($sign$hours:$minutes)';
+
+  const supportedTimezones = {
+    '(-05:00)': '(-05:00) EST - NEW YORK TIME',
+    '(-08:00)': '(-08:00) PST - LOS ANGELES TIME',
+    '(+00:00)': '(+00:00) GMT - LONDON TIME',
+    '(+01:00)': '(+01:00) CET - PARIS TIME',
+    '(+05:30)': '(+05:30) IST - INDIA TIME',
+  };
+
+  // Use offset only to match the timezone
+  return supportedTimezones[offsetKey] ?? '(-05:00) EST - NEW YORK TIME';
+}
+
+String _mapAbbreviationToCity(String abbr) {
+  switch (abbr) {
+    case 'EST':
+      return 'NEW YORK TIME';
+    case 'PST':
+      return 'LOS ANGELES TIME';
+    case 'GMT':
+      return 'LONDON TIME';
+    case 'CET':
+      return 'PARIS TIME';
+    case 'IST':
+      return 'INDIA TIME';
+    default:
+      return 'LOCAL TIME';
+  }
+}
 class MeetingData extends ChangeNotifier {
   // Participants
   List<Participant> participants = [
     Participant(
       name: 'ANGELO',
-      imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIV99IJOGUBMQBy9kccOQsAyq36yzt0BRYUw&s',
+      imageUrl: 'https://t3.ftcdn.net/jpg/02/99/04/20/360_F_299042079_vGBD7wIlSeNl7vOevWHiL93G4koMM967.jpg',
     ),
     Participant(
       name: 'KATE',
-      imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgu8cvJBA4GB-KIsh8vcTrOR4lHX40DX0a9w&s',
+      imageUrl: 'https://t4.ftcdn.net/jpg/03/83/25/83/360_F_383258331_D8imaEMl8Q3lf7EKU2Pi78Cn0R7KkW9o.jpg',
     ),
   ];
 
@@ -71,14 +107,51 @@ class MeetingData extends ChangeNotifier {
     TimeSlot(time: '11:15 PM'),
     TimeSlot(time: '11:30 PM'),
     TimeSlot(time: '11:45 PM'),
-
-
   ];
+
+  void getTimeSlot(){
+    if(selectedDurationIndex==0){
+      timeSlots = [
+        TimeSlot(time: '8:30 PM'),
+        TimeSlot(time: '8:45 PM'),
+        TimeSlot(time: '9:00 PM'),
+        TimeSlot(time: '9:15 PM'),
+        TimeSlot(time: '9:30 PM'),
+        TimeSlot(time: '9:45 PM'),
+        TimeSlot(time: '10:00 PM'),
+        TimeSlot(time: '10:15 PM'),
+        TimeSlot(time: '10:30 PM'),
+        TimeSlot(time: '10:45 PM'),
+        TimeSlot(time: '11:00 PM'),
+        TimeSlot(time: '11:15 PM'),
+        TimeSlot(time: '11:30 PM'),
+        TimeSlot(time: '11:45 PM'),
+      ];
+    }else if(selectedDurationIndex==1){
+      timeSlots = [
+        TimeSlot(time: '8:30 PM'),
+        TimeSlot(time: '9:00 PM'),
+        TimeSlot(time: '9:30 PM'),
+        TimeSlot(time: '10:00 PM'),
+        TimeSlot(time: '10:30 PM'),
+        TimeSlot(time: '11:00 PM'),
+        TimeSlot(time: '11:30 PM'),
+      ];
+    }else if(selectedDurationIndex==2){
+      timeSlots = [
+        TimeSlot(time: '8:00 PM'),
+        TimeSlot(time: '9:00 PM'),
+        TimeSlot(time: '10:00 PM'),
+        TimeSlot(time: '11:00 PM'),
+      ];
+    }
+    notifyListeners();
+  }
 
   // Selected states
   int selectedDurationIndex = 0;
   TimeSlot? selectedTimeSlot;
-  String currentTimezone = '(-05:00) EST - NEW YORK TIME';
+  String currentTimezone =  getDefaultTimezone();//'(-05:00) EST - NEW YORK TIME';
 
   /// Returns a list of 35–42 days to populate the calendar grid for the current month.
   List<DateTime> getCalendarDays() {
@@ -191,6 +264,22 @@ class MeetingData extends ChangeNotifier {
 
   /// Returns the selected date in a formatted string (e.g., "MONDAY, APRIL 21").
   String getFormattedDate() {
-    return DateFormat('EEEE, MMMM d').format(selectedDate).toUpperCase();
+
+    final day = selectedDate.day;
+    final suffix = _getDaySuffix(day);
+    final month = DateFormat('EEEE, MMMM d').format(selectedDate);
+    return '${month.toUpperCase()}$suffix';
+
+
+    // return DateFormat('EEEE, MMMM d').format(selectedDate).toUpperCase() ;
+  }
+  String _getDaySuffix(int day) {
+    if (day >= 11 && day <= 13) return 'TH';
+    switch (day % 10) {
+      case 1: return 'ST';
+      case 2: return 'ND';
+      case 3: return 'RD';
+      default: return 'TH';
+    }
   }
 }

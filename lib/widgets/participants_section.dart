@@ -21,15 +21,15 @@ class ParticipantsSection extends StatelessWidget {
             children: [
               // Overlapping avatar stack
               SizedBox(
-                width: 80,
-                height: 40,
+                width: 100,
+                height: 50,
                 child: Stack(
                   children: List.generate(participants.length, (index) {
                     return Positioned(
-                      left: index * 25.0,
+                      left: index * 35.0,
                       child: Container(
-                        width: 40,
-                        height: 40,
+                        width: 50,
+                        height: 50,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           border: Border.all(
@@ -37,15 +37,15 @@ class ParticipantsSection extends StatelessWidget {
                         ),
                         child: CircleAvatar(
                           backgroundColor: Colors.grey[200],
-                          radius: 20,
+                          radius: 50,
                           child: ClipOval(
                             child: Image.network(
                               participants[index].imageUrl,
-                              width: 40,
-                              height: 40,
+                              width: 50,
+                              height: 50,
                               fit: BoxFit.cover,
                               errorBuilder: (context, error, stackTrace) =>
-                                  const Icon(Icons.person),
+                                  const Icon(Icons.person, size: 20),
                             ),
                           ),
                         ),
@@ -54,7 +54,6 @@ class ParticipantsSection extends StatelessWidget {
                   }),
                 ),
               ),
-              const SizedBox(width: 12),
               // Meeting text
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

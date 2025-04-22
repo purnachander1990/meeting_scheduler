@@ -12,7 +12,7 @@ class DurationSection extends StatelessWidget {
     final meetingData = Provider.of<MeetingData>(context);
 
     return Padding(
-      padding: const EdgeInsets.all(36.0),
+      padding: const EdgeInsets.all(24.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

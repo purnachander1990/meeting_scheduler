@@ -11,6 +11,15 @@ class TimezoneSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final meetingData = Provider.of<MeetingData>(context);
 
+    // List of predefined timezones (must match with model logic)
+    const timezones = [
+      '(-05:00) EST - NEW YORK TIME',
+      '(-08:00) PST - LOS ANGELES TIME',
+      '(+00:00) GMT - LONDON TIME',
+      '(+01:00) CET - PARIS TIME',
+      '(+05:30) IST - INDIA TIME',
+    ];
+
     return Container(
       decoration: BoxDecoration(
         color: const Color(0xFFFFFFFF),
@@ -18,15 +27,14 @@ class TimezoneSection extends StatelessWidget {
         borderRadius: BorderRadius.circular(50),
       ),
       child: Padding(
-        padding: const EdgeInsets.only(left: 30, right: 30, top: 10, bottom: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            /// Dropdown for timezone selection
             PopupMenuButton<String>(
               onSelected: meetingData.setTimezone,
-              tooltip: '',
+              tooltip: 'Select Timezone',
               child: Row(
                 children: [
                   Text(
@@ -37,31 +45,18 @@ class TimezoneSection extends StatelessWidget {
                       color: Colors.black,
                     ),
                   ),
+                  const SizedBox(width: 4),
                   const Icon(Icons.keyboard_arrow_down, size: 16),
                 ],
               ),
-              itemBuilder: (context) => const [
-                PopupMenuItem(
-                  value: '(-05:00) EST - NEW YORK TIME',
-                  child: Text('(-05:00) EST - NEW YORK TIME'),
-                ),
-                PopupMenuItem(
-                  value: '(-08:00) PST - LOS ANGELES TIME',
-                  child: Text('(-08:00) PST - LOS ANGELES TIME'),
-                ),
-                PopupMenuItem(
-                  value: '(+00:00) GMT - LONDON TIME',
-                  child: Text('(+00:00) GMT - LONDON TIME'),
-                ),
-                PopupMenuItem(
-                  value: '(+01:00) CET - PARIS TIME',
-                  child: Text('(+01:00) CET - PARIS TIME'),
-                ),
-                PopupMenuItem(
-                  value: '(+05:30) IST - INDIA TIME',
-                  child: Text('(+05:30) IST - INDIA TIME'),
-                ),
-              ],
+              itemBuilder: (context) {
+                return timezones.map((tz) {
+                  return PopupMenuItem<String>(
+                    value: tz,
+                    child: Text(tz),
+                  );
+                }).toList();
+              },
             ),
           ],
         ),

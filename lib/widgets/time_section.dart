@@ -10,7 +10,7 @@ class TimeSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final meetingData = Provider.of<MeetingData>(context);
-
+    // meetingData.getTimeSlot();
     /// Determines the number of columns based on screen width
     int columnCount = MediaQuery.of(context).size.width > 1100 ? 2 : 1;
 
